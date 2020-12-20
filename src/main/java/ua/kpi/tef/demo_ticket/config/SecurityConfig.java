@@ -19,8 +19,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http ) throws Exception {
         http
                 .csrf().disable()
+                .headers().frameOptions().disable()
+                .and()
                 .authorizeRequests()
-                .antMatchers( "/", "/find_avia_trips", "/find_railway_trips", "/railway", "/registration", "/images/*", "/images/icons/*", "/images/icons/social media/*", "/styles/*.css", "/script/*.js", "/js/*.js", "/reg").permitAll()
+                .antMatchers( "/", "/find_avia_trips", "/find_railway_trips", "/railway", "/registration",
+                        "/images/*", "/images/icons/*", "/images/icons/social media/*", "/styles/*.css",
+                        "/script/*.js", "/js/*.js", "/reg", "/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()

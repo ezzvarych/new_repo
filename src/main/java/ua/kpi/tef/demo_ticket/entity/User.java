@@ -19,11 +19,11 @@ import java.util.List;
 @AllArgsConstructor
 
 @Entity
-@Table( name="user",
-        uniqueConstraints={@UniqueConstraint(columnNames={"email"})})
+@Table(name = "user",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     Long id;
     @Column(name = "first_name", nullable = false)
@@ -41,6 +41,9 @@ public class User implements UserDetails {
     private RoleType role;
     @Column(name = "balance", nullable = false)
     private long balance;
+
+    @OneToMany(mappedBy = "user")
+    private List<Ticket> tickets;
 
     private boolean accountNonExpired;
     private boolean accountNonLocked;

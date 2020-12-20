@@ -41,6 +41,11 @@ public class TripService {
     }
 
 
+    public Trip getById(Long tripId) {
+        return tripRepository.findById(tripId)
+                .orElse(new Trip());
+    }
+
     //public List<Trip> findAll(){ return tripRepository.findAll(); }
 
     public List<Trip> getSearchedAviaTrip(String whereFrom, String whereTo, LocalDate departureDate){

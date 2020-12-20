@@ -9,10 +9,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ua.kpi.tef.demo_ticket.dto.UsersDTO;
+import ua.kpi.tef.demo_ticket.entity.Ticket;
 import ua.kpi.tef.demo_ticket.entity.enums.RoleType;
 import ua.kpi.tef.demo_ticket.entity.User;
 import ua.kpi.tef.demo_ticket.repository.UserRepository;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -88,5 +90,11 @@ public class UserService implements UserDetailsService {
 
     public void deleteById(Long id){
         userRepository.deleteById(id);
+    }
+
+    public List<Ticket> getUserTickets(Long id) {
+        return userRepository.findById(id)
+                .map(User::getTickets)
+                .orElse(Collections.emptyList());
     }
 }

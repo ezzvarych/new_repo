@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ua.kpi.tef.demo_ticket.entity.Ticket;
 import ua.kpi.tef.demo_ticket.entity.Trip;
 import ua.kpi.tef.demo_ticket.entity.enums.RoleType;
 import ua.kpi.tef.demo_ticket.entity.User;
@@ -88,15 +89,16 @@ public class PageController {
         return "registration.html";
     }
 
-    public RoleType role(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
-        return user.getRole();
+    @GetMapping("/user-tickets")
+    public String getUserTickets(Model model) {
+        List<Ticket> tickets = userService.getUserTickets(getCurrent().getId());
+        model.addAttribute("tickets", tickets);
+        return "user-profile";
     }
 
-    public String userName(){
+    private User getCurrent() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
-        return user.getUsername();
+        return user;
     }
 }

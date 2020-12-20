@@ -1,6 +1,8 @@
 package ua.kpi.tef.demo_ticket.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import ua.kpi.tef.demo_ticket.controller.exception.TripException;
 import ua.kpi.tef.demo_ticket.dto.TripDto;
 import ua.kpi.tef.demo_ticket.entity.Trip;
+import ua.kpi.tef.demo_ticket.entity.User;
 import ua.kpi.tef.demo_ticket.service.TripService;
 
 import javax.validation.Valid;

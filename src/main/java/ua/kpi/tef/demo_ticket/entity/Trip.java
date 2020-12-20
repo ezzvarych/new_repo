@@ -9,6 +9,8 @@ import ua.kpi.tef.demo_ticket.entity.enums.ClassType;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -19,7 +21,7 @@ import java.time.LocalDate;
 @Table(name = "trip")
 public class Trip {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -61,4 +63,7 @@ public class Trip {
 
     @Column(name = "place_amount")
     private int placeAmount;
+
+    @OneToMany(mappedBy = "trip", fetch = FetchType.EAGER)
+    private List<Ticket> ticketsSold = new ArrayList<>();
 }
