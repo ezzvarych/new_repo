@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ua.kpi.tef.demo_ticket.entity.enums.PaymentStatus;
 
 import javax.persistence.*;
 
@@ -28,4 +29,7 @@ public class Ticket {
     private String lastName;
 
     private long totalPrice;
+
+    @Enumerated(value = EnumType.STRING)
+    private PaymentStatus paymentStatus;
 }

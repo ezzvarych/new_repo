@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import ua.kpi.tef.demo_ticket.dto.PaymentDto;
 import ua.kpi.tef.demo_ticket.dto.TicketDto;
 import ua.kpi.tef.demo_ticket.entity.Ticket;
 import ua.kpi.tef.demo_ticket.entity.Trip;
@@ -60,5 +61,13 @@ public class DemoTicketApplication implements CommandLineRunner {
                 .tripId(createdTrip.getId())
                 .build();
         Ticket ticket = ticketService.buyTicket(ticketDto, createdUser);
+
+        PaymentDto paymentDto = PaymentDto.builder()
+                .cardNumber("")
+                .cardOwner("")
+                .cvv("")
+                .ticketId(ticket.getId())
+                .build();
+        Ticket paymentComp = ticketService.finishPayment(paymentDto, user);
     }
 }

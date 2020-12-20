@@ -4,12 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import ua.kpi.tef.demo_ticket.dto.PaymentDto;
 import ua.kpi.tef.demo_ticket.dto.TicketDto;
+import ua.kpi.tef.demo_ticket.entity.Ticket;
 import ua.kpi.tef.demo_ticket.entity.User;
-import ua.kpi.tef.demo_ticket.repository.TicketRepository;
 import ua.kpi.tef.demo_ticket.service.TicketService;
-import ua.kpi.tef.demo_ticket.service.TripService;
 
 @Controller
 public class TicketController {
@@ -17,14 +18,20 @@ public class TicketController {
     @Autowired
     private TicketService ticketService;
 
-    @Autowired
-    private TicketRepository ticketRepository;
-
     @PostMapping("/buy-ticket")
-    public String buyTicket(TicketDto ticketDto) {
+    public String buyTicket(TicketDto ticketDto, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
-        ticketService.buyTicket(ticketDto, user);
-        return "redirect:users";
+        Ticket ticket = ticketService.buyTicket(ticketDto, user);
+        model.addAttribute("ticket", ticket);
+        return "redirect:payment";
+    }
+
+    @PostMapping("/payment")
+    public String finishPayment(PaymentDto paymentDto) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        ticketService.finishPayment(paymentDto, user);
+        return "redirect:success-payment";
     }
 }
