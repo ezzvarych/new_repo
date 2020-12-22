@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">        
+        <title>Tickets</title>
+        <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="styles/style.css">
+        <link rel="stylesheet" type="text/css" href="styles/media.css">
+    </head>
+    
+    <body>
+        <div class="container">
+            <div class="background light">
+                <header>
+                    <a href="index.html" class="logo_link">
+                        <img src="images/icons/logo.svg">
+                    </a>
+                    <nav class="header-buttons account">
+                        <a href="#" class="btn account-btn">
+                            <img src="images/icons/account but.svg">
+                        </a>
+                        <a href="#" class="menu"><img src="images/icons/menu dark.svg"></a>
+                        <div class="menu-block">
+                            <a href="#" class="close-btn">&times;</a>
+                            <a href="#" class="menu-btn">Авіаквитки</a>
+                            <a href="#" class="menu-btn">Залізничні квитки</a>
+                            <a href="#" class="menu-btn">Автобуси</a>
+                            <a href="#" class="menu-btn">Готелі</a>
+                            <a href="#" class="btn account-btn inside_menu">
+                                <img src="images/icons/account but.svg">
+                            </a>
+                        </div>
+                    </nav>
+                </header>
+
+                <main>
+                    <div class="user-hello">Вітаємо, <strong>Петров Іван</strong> ! Ми раді Вас бачити!</div>
+                    <div class="tickets-table avia user">
+                        <button class="nav-link user-btn" onclick="openSearch(event,'orders')"  id="default">Мої замовлення</button>
+                        <button class="nav-link user-btn" onclick="openSearch(event,'buyer-data')">Дані покупця</button>
+                        <button class="nav-link user-btn" onclick="openSearch(event,'passenger-data')">Дані пасажирів</button>
+                        <button class="nav-link user-btn" onclick="openSearch(event,'bonus')">Мої бонуси</button>
+                    </div>
+                    <div class="background dark user">
+                        <div id="orders" class="tabcontent user">
+                            <div class="choice-heading user">Мої замовлення</div>
+                            <div class="ticket-avia" th:each="ticket : ${tickets}">
+                                <div>id = <span th:text="${ticket.id}"></span></div>
+                                <div>firstName = <span th:text="${ticket.firstName}"></span></div>
+                                <div>lastName = <span th:text="${ticket.lastName}"></span></div>
+                                <div>totalPrice = <span th:text="${ticket.totalPrice}"></span></div>
+                                <div>paymentStatus = <span th:text="${ticket.paymentStatus}"></span></div>
+                            </div>
+                        </div>
+                        <div id="buyer-data" class="tabcontent user">
+                            <div class="choice-heading user">Дані покупця</div>
+                            <form method="post" class="user-form">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email"
+                                           class="form-account"
+                                           value="djfgkdk@gmail.com"
+                                           required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Прізвище, Ім'я</label>
+                                    <input type="Name"
+                                           class="form-account"
+                                           value="Петров Іван"
+                                           required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Ім'я</label>
+                                    <input type="phoneNumber"
+                                           class="form-account"
+                                           value="+38097483920"
+                                           required>
+                                </div>
+                            </form>   
+                        </div>
+                        <div id="passenger-data" class="tabcontent user">
+                            <div class="choice-heading user">Пасажири</div>
+                            <table class="data-table">
+                                <tr>
+                                  <th>Пасажир</th>
+                                  <th>Сервіс</th>
+                                  <th>Стать</th>
+                                  <th>Дата народження</th>
+                                  <th>Громадянство</th>
+                                  <th>Документ</th>
+                                  <th>Змінити / Видалити</th>
+                                </tr>
+                                <tr>
+                                  <td>Петров Іван</td>
+                                  <td>Залізничні квитки</td>
+                                  <td>Ч</td>
+                                  <td>-</td>
+                                  <td>-</td>
+                                  <td>Студентський: КВ1545450</td>
+                                  <td class="edit-section">
+                                      <a href="#"><img src="images/icons/edit.svg"></a>
+                                      <a href="#"><img src="images/icons/delete.svg"></a>
+                                  </td>
+                                </tr>
+                              </table>
+                        </div>
+                        <div id="bonus" class="tabcontent user">
+                            <div class="choice-heading user">Мої бонуси</div>
+                            <div class="user-bonus">
+                                <div class="balance">Ваш поточний баланс: 
+                                    <span>0 бонусів</span>
+                                    ≈
+                                    <span>0 UAH</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        
+        <footer class="tickets-footer">
+            <div class="apps">
+                <div class="apps-text">Доступно в</div>
+                <div class="app-block">
+                    <button href="#" class="app-btn google-play">
+                        <img src="images/icons/google play.svg">   
+                    </button>
+                    <button href="#" class="app-btn app-store">
+                        <img src="images/icons/apple.svg" > 
+                    </button>
+                </div>
+            </div>
+            <div class="footer-cols">
+                <div class="footer-block">
+                    <div class="logo-block">
+                        <a href="main.html" class="logo_link">
+                            <img src="images/icons/logo light.svg">
+                        </a>
+                    </div>
+                    <div class="social-media">
+                        <nav>
+                            <a href="#">
+                                <img src="images/icons/facebook.svg">                                                                
+                            </a>
+                            <a href="#">                          
+                                <img src="images/icons/instagram.svg"> 
+                            </a> 
+                            <a href="#">                              
+                                <img src="images/icons/telegram.svg">                                  
+                            </a>                         
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="columns">
+                    <div class="column">
+                        <ul>
+                            <li class="li-title">Послуги</li>
+                            <li><a href="#">Авіаквитки</a></li>
+                            <li><a href="#">Ж/Д квитки</a></li>
+                            <li><a href="#">Автобуси</a></li>
+                            <li><a href="#">Готелі</a></li>
+                            <li><a href="#">Авто</a></li>
+                        </ul>
+                    </div>
+        
+                    <div class="column">
+                        <ul>
+                            <li class="li-title">Більше</li>
+                            <li><a href="#">Про нас</a></li>
+                            <li><a href="#">Як працює сервіс</a></li>
+                            <li><a href="#">Чому обрати нас</a></li>
+                            <li><a href="#">Контакти</a></li>
+                        </ul>
+                    </div>
+        
+                    <div class="column">
+                        <ul>
+                            <li class="li-title">Сервіси</li>
+                            <li><a href="#">Рейтинг авіакомпаній</a></li>
+                            <li><a href="#">Порівняння цін</a></li>
+                            <li><a href="#">Розклад рейсів</a></li>
+                            <li><a href="#">Бонуси</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">&copy; Tickets.ua 2008-2020 Сервіс онлайн бронювання № ❶</div>
+            
+        </footer>
+
+        </div>
+    </body>
+    <script type="text/javascript" src="script/script.js"></script>
+</html>
